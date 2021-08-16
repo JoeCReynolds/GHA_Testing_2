@@ -13,6 +13,7 @@
 		<java.source.version>1.8</java.source.version>
 		<gsVersion>14.5.0</gsVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<ghatesting>0.0.1</ghatesting>
 	</properties>
 
 	<dependencies>
@@ -25,7 +26,7 @@
 		<dependency>
 			<groupId>ghatesting</groupId>
 			<artifactId>ghatesting</artifactId>
-			<version>1.0.0</version>
+			<version>${ghatesting}</version>
 		</dependency>
 	</dependencies>
 

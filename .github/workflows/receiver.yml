@@ -10,7 +10,7 @@ on:
     types: build
 
 jobs:
-    run-shell-command:
+    Receive_Workflow_Trigger:
         runs-on: ubuntu-latest
         steps:
             - name: echo a string

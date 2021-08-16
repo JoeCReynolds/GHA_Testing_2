@@ -1,0 +1,21 @@
+name: Receive Dispatch
+
+on:
+  # Have to send a POST request to https://api.github.com/repos/JoeCReynolds/GHA_Testing_2/dispatches
+  # with a body of the following:
+  # {
+  #   "event_type": "build"
+  # }
+  repository_dispatch:
+    types: build
+
+jobs:
+    run-shell-command:
+        runs-on: ubuntu-latest
+        steps:
+            - name: echo a string
+              run: echo "Hello world"
+            - name: multiline script
+              run: |
+                node -v
+                npm -v

@@ -36,11 +36,15 @@ jobs:
       - name: Check Maven Dependencies Versions
         run: |
           mvn versions:display-dependency-updates
+
+      - name: Client Payload
+        run: |
+          echo ${{ github.event.client_payload.new_version }}
       
       - name: Update Dependencies Versions
         run: |
           # mvn versions:use-dep-version -Dincludes=ghatesting:ghatesting -DdepVersion=1.0.0 -DforceVersion=true
-          mvn versions:set-property -Dproperty=ghatesting -DnewVersion=1.0.0
+          mvn versions:set-property -Dproperty=ghatesting -DnewVersion=${{ github.event.client_payload.new_version }}
 
       # This step utilizes the maven build-helper to increment the patch version
       - name: Update Pom Version

@@ -33,6 +33,7 @@ jobs:
         run: |
           echo "M2_HOME=`mvn --version | grep -i "MAVEN HOME" | awk -F': ' '{print $NF}'`" >> $GITHUB_ENV
 
+      # This step utilizes the maven build-helper to increment the patch version
       - name: Update Pom Version
         run: |
           mvn build-helper:parse-version versions:set \
@@ -42,7 +43,7 @@ jobs:
 
       - name: Update Repo
         run: |
-          echo ${{ github }}
+          echo ${{ github.env }}
           git config --global user.name "JoeCReynolds"
           git config --global user.email "jcreyno5@asu.edu" 
           git add . &&  git commit -m "Update Pom version" && git push

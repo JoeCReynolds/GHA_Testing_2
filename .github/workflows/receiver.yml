@@ -36,6 +36,10 @@ jobs:
       - name: Check Maven Dependencies Versions
         run: |
           mvn versions:display-dependency-updates
+      
+      - name: Update Dependencies
+        run: |
+          mvn versions:use-dep-version -Dincludes=ghatesting:ghatesting -DdepVersion=2.0.0 -DforceVersion=true
 
       # This step utilizes the maven build-helper to increment the patch version
       - name: Update Pom Version
@@ -43,8 +47,6 @@ jobs:
           mvn build-helper:parse-version versions:set \
           -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} \
           versions:commit
-          mvn versions:use-dep-version -Dincludes=ghatesting:ghatesting -DdepVersion=2.0.0 -DforceVersion=true
-          # mvn -Dghatesting=2.0.0
           cat pom.xml
 
       # Below, %an is 'author name' and %ae is 'author email'

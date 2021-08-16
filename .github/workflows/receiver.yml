@@ -43,7 +43,8 @@ jobs:
 
       - name: Update Repo
         run: |
-          echo ${{ github.env }}
+          echo ${{ github.repository }}
+          echo ${{ github.workspace }}
           git config --global user.name "JoeCReynolds"
           git config --global user.email "jcreyno5@asu.edu" 
           git add . &&  git commit -m "Update Pom version" && git push

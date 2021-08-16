@@ -40,7 +40,7 @@ jobs:
       - name: Update Dependencies Versions
         run: |
           # mvn versions:use-dep-version -Dincludes=ghatesting:ghatesting -DdepVersion=1.0.0 -DforceVersion=true
-          mvn versions:set-property -Dproperty=ghatesting -DnewVersion=[1.0.0]
+          mvn versions:set-property -Dproperty=ghatesting -DnewVersion=1.0.0
 
       # This step utilizes the maven build-helper to increment the patch version
       - name: Update Pom Version

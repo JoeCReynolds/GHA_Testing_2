@@ -40,15 +40,6 @@ jobs:
           versions:commit
           cat pom.xml
 
-      - name: Echo Maven Version
-        env:
-          MVN_VERSION: $(mvn -q \
-            -Dexec.executable=echo \
-            -Dexec.args='${project.version}' \
-            --non-recursive \
-            exec:exec)
-        run: echo "$(mvn -q \
-            -Dexec.executable=echo \
-            -Dexec.args='${project.version}' \
-            --non-recursive \
-            exec:exec)"
+      - name: Update Repo
+        run: |
+          git add . &&  git commit -m "Update Pom version" && git push

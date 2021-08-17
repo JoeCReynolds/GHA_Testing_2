@@ -75,6 +75,7 @@ jobs:
   #       uses: actions/checkout@v2
 
       - name: Get Project Version
+        id: version
         run: |
           echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
@@ -91,6 +92,9 @@ jobs:
             - Second Change
           draft: false
           prerelease: false
+      
+    outputs:
+      VERSION: ${{ env.VERSION }}
 
 
   Send_Workflow_Trigger:
@@ -101,7 +105,7 @@ jobs:
         env: 
           TARGET_REPO: https://api.github.com/repos/JoeCReynolds/GHA_Testing_3/dispatches
         run: |
-          echo "${{ env.VERSION }}"
+          echo "${{ needs.Receive_Workflow_Trigger.outputs.VERSION }}"
           curl -H "Authorization: token ${{ secrets.REPO_DISPATCH_BUILD }}" \
               -H 'Accept: application/vnd.github.everest-preview+json' \
               "$TARGET_REPO" \

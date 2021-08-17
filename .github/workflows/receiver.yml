@@ -109,4 +109,4 @@ jobs:
           curl -H "Authorization: token ${{ secrets.REPO_DISPATCH_BUILD }}" \
               -H 'Accept: application/vnd.github.everest-preview+json' \
               "$TARGET_REPO" \
-              -d '{"event_type": "update_3", "client_payload": {"new_version": "'"${{ env.VERSION }}"'", "property": "ghatesting2"}}'
+              -d '{"event_type": "update_3", "client_payload": {"new_version": "'"${{ needs.Receive_Workflow_Trigger.outputs.VERSION }}"'", "property": "ghatesting2"}}'

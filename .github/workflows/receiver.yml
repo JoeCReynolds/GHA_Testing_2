@@ -66,34 +66,32 @@ jobs:
           git pull
           git add . &&  git commit -m "Update Pom version" && git push
 
-  # Create_Release:
-  #   needs: Receive_Workflow_Trigger
-  #   name: Create Release
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
-
       - name: Get Project Version
         id: version
         run: |
           echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
+    outputs:
+      VERSION: ${{ env.VERSION }}
+
+
+  Create_Release:
+    needs: Receive_Workflow_Trigger
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
       - name: Create Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v${{ env.VERSION }}
-          release_name: Release ${{ env.VERSION }}
+          tag_name: v${{ needs.Receive_Workflow_Trigger.outputs.VERSION }}
+          release_name: Release ${{ needs.Receive_Workflow_Trigger.outputs.VERSION }}
           body: |
             # Release: ${{ env.VERSION }}
             - Updated ${{ github.event.client_payload.property }} dependency version to ${{ github.event.client_payload.new_version }}
           draft: false
           prerelease: false
-      
-    outputs:
-      VERSION: ${{ env.VERSION }}
 
 
   Send_Workflow_Trigger:
